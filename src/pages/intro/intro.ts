@@ -30,6 +30,8 @@ export class IntroPage {
         'INTRO_PAGE.TEXT_2',
         'INTRO_PAGE.FAST_EASY',
         'INTRO_PAGE.TEXT_3',
+        'INTRO_PAGE.PROTECTION',
+        'INTRO_PAGE.TEXT_4',
       ]).subscribe((translation) => {
         this.slides = [
           {
@@ -46,6 +48,11 @@ export class IntroPage {
             title: translation['INTRO_PAGE.FAST_EASY'],
             image: 'fast-easy',
             description: translation['INTRO_PAGE.TEXT_3'],
+          },
+          {
+            title: translation['INTRO_PAGE.PROTECTION'],
+            image: 'security',
+            description: translation['INTRO_PAGE.TEXT_4'],
           },
         ];
       });

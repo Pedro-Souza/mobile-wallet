@@ -41,7 +41,8 @@ export const APP_TIMEOUT_DESTROY = 60000;
 
 // PIN
 export const PIN_ATTEMPTS_LIMIT = 3;
-export const PIN_ATTEMPTS_TIMEOUT_MILLISECONDS = 30 * 1000;
+export const PIN_ATTEMPTS_LIMIT_FOR_CLEAR_DATA = 10;
+export const PIN_ATTEMPTS_TIMEOUT_MILLISECONDS = 3 * 1000;
 
 // ARK
 export const PRIVACY_POLICY_URL = 'https://ark.io/PrivacyPolicy.txt';

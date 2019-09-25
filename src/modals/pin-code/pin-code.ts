@@ -2,6 +2,7 @@ import { Component, NgZone, OnDestroy } from '@angular/core';
 import { IonicPage, Platform, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
 import { Vibration } from '@ionic-native/vibration';
 import { AuthProvider } from '@providers/auth/auth';
+import { SettingsDataProvider } from '@providers/settings-data/settings-data';
 
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
@@ -50,6 +51,7 @@ export class PinCodeModal implements OnDestroy {
     private vibration: Vibration,
     private alertCtrl: AlertController,
     private translateService: TranslateService,
+    private settingsDataProvider: SettingsDataProvider,
   ) {
     this.password = '';
     this.message = this.navParams.get('message');
@@ -130,12 +132,42 @@ export class PinCodeModal implements OnDestroy {
     if (this.attempts >= constants.PIN_ATTEMPTS_LIMIT) {
       this.authProvider.increaseUnlockTimestamp().then(() => this.loadUnlockTime());
     }
+
+    this.authProvider.increaseAttemptsForClear().subscribe((attempts) => {
+      if (attempts >= constants.PIN_ATTEMPTS_LIMIT_FOR_CLEAR_DATA) {
+        this.alertForClear();
+      }
+    });
+  }
+
+  alertForClear() {
+    this.translateService.get([
+      'PIN_CODE.PROTECTION',
+      'PIN_CODE.PROTECTION_MESSAGE',
+      'OK'
+    ]).subscribe((translation) => {
+      const alert = this.alertCtrl.create({
+        title: translation['PIN_CODE.PROTECTION'],
+        message: translation['PIN_CODE.PROTECTION_MESSAGE'],
+        enableBackdropDismiss: false,
+        buttons: [{
+          text: translation.OK,
+          handler: () => {
+            this.authProvider.clearAttemptsForClearData();
+            this.settingsDataProvider.clearData();
+            this.navCtrl.setRoot('IntroPage');
+          }
+        }]
+      });
+      alert.present();
+    });
   }
 
   setWrong() {
     this.vibration.vibrate(constants.VIBRATION_TIME_LONG_MS);
 
     this.authProvider.increaseAttempts().subscribe((newAttempts) => {
+      this.authProvider.increaseAttemptsForClear();
       this.attempts = newAttempts;
       this.verifyAttempts();
 
@@ -166,6 +198,7 @@ export class PinCodeModal implements OnDestroy {
     // When logged in, the attempts are restarted
     if (status) {
       this.authProvider.clearAttempts();
+      this.authProvider.clearAttemptsForClearData();
     }
 
     if (this.outputPassword) {

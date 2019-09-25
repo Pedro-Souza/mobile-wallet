@@ -53,6 +53,10 @@ page-intro {
     &.fast-easy {
       content: url('../assets/img/light/intro/fast-easy.png');
     }
+
+    &.security {
+      content: url('../assets/img/light/intro/security.png');
+    }
   }
 
   p {
@@ -65,7 +69,7 @@ page-intro {
 
 .dark-theme {
   page-intro {
-    p { 
+    p {
       color: color($darkColors, secondary, base);
     }
 

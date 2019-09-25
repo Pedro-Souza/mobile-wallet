@@ -98,10 +98,21 @@ export class AuthProvider {
     return this.storage.get(constants.STORAGE_AUTH_ATTEMPTS);
   }
 
+  getAttemptsForClear() {
+    return this.storage.get(constants.PIN_ATTEMPTS_LIMIT_FOR_CLEAR_DATA);
+  }
+
   increaseAttempts() {
     return this.getAttempts().mergeMap(attempts => {
       const increasedAttempts = Number(attempts) + 1;
       return this.storage.set(constants.STORAGE_AUTH_ATTEMPTS, increasedAttempts).map(() => increasedAttempts);
+    });
+  }
+
+  increaseAttemptsForClear() {
+    return this.getAttemptsForClear().mergeMap(attempts => {
+      const increasedAttempts = Number(attempts) + 1;
+      return this.storage.set(constants.PIN_ATTEMPTS_LIMIT_FOR_CLEAR_DATA, increasedAttempts).map(() => increasedAttempts);
     });
   }
 
@@ -115,6 +126,10 @@ export class AuthProvider {
         resolve(nextTimestamp);
       });
     });
+  }
+
+  clearAttemptsForClearData() {
+    this.storage.set(constants.PIN_ATTEMPTS_LIMIT_FOR_CLEAR_DATA, 0);
   }
 
   clearAttempts() {

@@ -94,9 +94,11 @@
     "FAST_EASY": "Fast and Easy",
     "GET_STARTED": "Get Started",
     "SECURITY": "Security",
+    "PROTECTION": "Protection",
     "TEXT_1": "We provide all the tools you need to manage your ARK tokens, anytime, anywhere, worldwide!",
     "TEXT_2": "All your sensitive data is securely stored using PBKDF2 algorithm and AES-256 encryption protected by your PIN Code",
     "TEXT_3": "Swipe between profiles and wallets, check your balances, send and receive funds and much more",
+    "TEXT_4": "For your security, after 10 incorrect authentication attempts, all data will be deleted.",
     "WELCOME": "Welcome Aboard"
   },
   "SIGN_IN_PAGE": {
@@ -152,7 +154,9 @@
     "UPDATING": "Updating PIN code for all profiles and wallets...",
     "WRONG": "Please enter the correct PIN",
     "WEAK_PIN": "Weak PIN",
-    "WEAK_PIN_DETAIL": "The PIN you entered is considered weak and easy to guess. Are you sure you want to use it?"
+    "WEAK_PIN_DETAIL": "The PIN you entered is considered weak and easy to guess. Are you sure you want to use it?",
+    "PROTECTION": "Protection",
+    "PROTECTION_MESSAGE": "You have made a mistake 10 times in a row, for your safety all data will be deleted"
   },
   "INPUT_FEE": {
     "MIN": "Min",
@@ -339,5 +343,6 @@
     "WEDNESDAY": "Wed"
   },
   "WORD": "Word",
-  "YES": "Yes"
+  "YES": "Yes",
+  "OK": "OK"
 }
